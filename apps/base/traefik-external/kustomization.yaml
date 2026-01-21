@@ -4,7 +4,7 @@
   resources:
     - helmrelease.yaml
     - cloudflare-api-token.yaml
-    - middleware/security-headers.yaml
+    - middlewares/security-headers.yaml
     - tlsoptions/tls13.yaml
 
   configMapGenerator:
