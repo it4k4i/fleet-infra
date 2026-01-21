@@ -16,10 +16,8 @@ spec:
   install:
     createNamespace: true
     crds: Create   # CRDs automatisch installieren
-  values:
-    additionalArguments:
-      - "--providers.kubernetescrd"
-      - "--entrypoints.web.address=:80"
-      - "--entrypoints.websecure.address=:443"
-    service:
-      type: LoadBalancer
+
+  valuesFrom:
+    - kind: ConfigMap
+      name: traefik-external-values
+      valuesKey: values.yaml
