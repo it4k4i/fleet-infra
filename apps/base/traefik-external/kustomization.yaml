@@ -2,6 +2,7 @@
   kind: Kustomization
 
   resources:
+    - namespace.yaml
     - helmrelease.yaml
     - cloudflare-api-token.yaml
     - middlewares/security-headers.yaml
