@@ -2,5 +2,7 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 
 resources:
-  - ./crds
-  - ./sources
+  - ./crds/traefik-crds.yaml
+  - ./sources/helmrepo-jetstack.yaml
+  - ./sources/helmrepo‑bitnami.yaml
+  - ./sources/helmrepo‑traefik.yaml
