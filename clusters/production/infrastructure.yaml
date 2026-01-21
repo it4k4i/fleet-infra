@@ -4,10 +4,8 @@ metadata:
   name: infrastructure
   namespace: flux-system
 spec:
-  dependsOn:
-    - name: infrastructure
   interval: 1m
-  path: ./apps/production
+  path: ./infrastructure
   prune: true
   sourceRef:
     kind: GitRepository
