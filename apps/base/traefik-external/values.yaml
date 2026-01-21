@@ -1,0 +1,83 @@
+# --- Provider Settings ---
+providers:
+  kubernetesCRD:
+    enabled: true
+  kubernetesIngress:
+    enabled: true
+
+# --- EntryPoints ---
+entryPoints:
+  web:
+    address: ":80"
+  websecure:
+    address: ":443"
+
+# --- Global Redirect HTTP → HTTPS ---
+ports:
+  web:
+    redirectTo: websecure
+
+# --- ACME / Let's Encrypt via Cloudflare DNS-01 ---
+certificatesResolvers:
+  cloudflare:
+    acme:
+      email: admin@example.com
+      storage: /data/acme.json
+      dnsChallenge:
+        provider: cloudflare
+        delayBeforeCheck: 0
+        resolvers:
+          - "1.1.1.1:53"
+          - "8.8.8.8:53"
+        disablePropagationCheck: false
+
+# Cloudflare API Token aus Secret
+env:
+  - name: CF_DNS_API_TOKEN
+    valueFrom:
+      secretKeyRef:
+        name: cloudflare-api-token
+        key: CF_DNS_API_TOKEN
+
+# --- ACME Persistent Storage ---
+persistence:
+  enabled: true
+  name: acme
+  size: 1Gi
+  path: /data
+
+# --- Service Type ---
+service:
+  type: LoadBalancer
+
+# --- Dashboard deaktivieren ---
+ingressRoute:
+  dashboard:
+    enabled: false
+
+# --- Logging ---
+logs:
+  general:
+    level: INFO
+  access:
+    enabled: true
+
+# --- Deployment ---
+deployment:
+  replicas: 1
+
+# --- Security ---
+securityContext:
+  capabilities:
+    drop:
+      - ALL
+  readOnlyRootFilesystem: true
+
+# --- Ressourcen ---
+resources:
+  requests:
+    cpu: 100m
+    memory: 128Mi
+  limits:
+    cpu: 500m
+    memory: 512Mi
