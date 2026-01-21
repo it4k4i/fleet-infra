@@ -1,0 +1,29 @@
+apiVersion: helm.toolkit.fluxcd.io/v2beta2
+kind: HelmRelease
+metadata:
+  name: traefik-internal
+  namespace: traefik-internal
+spec:
+  interval: 5m0s
+  chart:
+    spec:
+      chart: traefik
+      version: "38.0.2"
+      sourceRef:
+        kind: HelmRepository
+        name: traefik
+        namespace: flux-system
+  install:
+    createNamespace: true
+    crds: Create   # CRDs automatisch installieren
+  values:
+    additionalArguments:
+      - "--providers.kubernetescrd"
+      - "--entrypoints.web.address=:80"
+      - "--entrypoints.websecure.address=:443"
+  service:
+    type: NodePort
+    nodePorts:
+      web: 30080
+      websecure: 30443
+

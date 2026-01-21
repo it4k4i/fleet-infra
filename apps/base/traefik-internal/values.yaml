@@ -1,0 +1,67 @@
+# --- Provider Settings ---
+providers:
+  kubernetesCRD:
+    enabled: true
+  kubernetesIngress:
+    enabled: true
+
+# --- EntryPoints ---
+entryPoints:
+  web:
+    address: ":80"
+  websecure:
+    address: ":443"
+
+# --- Global Redirect HTTP → HTTPS ---
+ports:
+  web:
+    redirectTo: websecure
+
+# --- ACME Persistent Storage ---
+certificatesResolvers: {} 
+persistence: 
+    enabled: false
+
+# --- Service Type ---
+service: 
+  type: NodePort 
+  nodePorts: 
+    web: 30080 
+    websecure: 30443
+
+# --- Dashboard deaktivieren ---
+ingressRoute:
+  dashboard:
+    enabled: false
+
+# --- Logging ---
+logs:
+  general:
+    level: INFO
+  access:
+    enabled: true
+
+# --- Deployment ---
+deployment:
+  replicas: 1
+
+# --- Security ---
+securityContext:
+  capabilities:
+    drop:
+      - ALL
+  readOnlyRootFilesystem: true
+
+# --- Ressourcen ---
+resources:
+  requests:
+    cpu: 100m
+    memory: 128Mi
+  limits:
+    cpu: 500m
+    memory: 512Mi
+
+ingressClass: 
+  enabled: true 
+  isDefaultClass: false 
+  name: traefik-internal
