@@ -1,0 +1,9 @@
+apiVersion: traefik.containo.us/v1alpha1
+kind: TLSOption
+metadata:
+  name: tls13
+  namespace: traefik-external
+spec:
+  minVersion: VersionTLS13
+  maxVersion: VersionTLS13
+  sniStrict: true

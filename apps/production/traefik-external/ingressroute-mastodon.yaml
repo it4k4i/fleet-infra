@@ -1,0 +1,26 @@
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: mastodon-web
+  namespace: mastodon
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - match: Host(`social.example.com`)
+      kind: Rule
+      services:
+        - name: mastodon-web
+          port: 3000
+      middlewares:
+        - name: security-headers
+          namespace: traefik-external
+  tls:
+    certResolver: cloudflare
+    domains:
+      - main: "*.example.com"
+      - main: "*.internal.example.com"
+      - main: "*.foo.net"
+    options:
+      name: tls13
+      namespace: traefik-external
