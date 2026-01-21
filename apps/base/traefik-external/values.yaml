@@ -1,11 +1,22 @@
-# --- Provider Settings ---
+# ---------------------------------------------------------
+# Provider Settings
+# Aktiviert die beiden Kubernetes Provider:
+# - CRD Provider (für IngressRoute, Middleware, TLSOption)
+# - Ingress Provider (für klassische Ingress Objekte)
+# ---------------------------------------------------------
 providers:
   kubernetesCRD:
     enabled: true
   kubernetesIngress:
     enabled: true
 
-# --- EntryPoints ---
+
+# ---------------------------------------------------------
+# EntryPoints
+# Definiert die Ports, auf denen Traefik extern lauscht.
+# Zusätzlich: HTTP → HTTPS Redirect über die offizielle
+# Traefik v3 Syntax.
+# ---------------------------------------------------------
 entryPoints:
   web:
     address: ":80"
@@ -18,7 +29,12 @@ entryPoints:
   websecure:
     address: ":443"
 
-# --- ACME / Let's Encrypt via Cloudflare DNS-01 ---
+
+# ---------------------------------------------------------
+# ACME / Let's Encrypt (Cloudflare DNS-01)
+# Externes Traefik nutzt ACME, um automatisch Zertifikate
+# für öffentliche Domains zu erzeugen.
+# ---------------------------------------------------------
 certificatesResolvers:
   cloudflare:
     acme:
@@ -32,7 +48,12 @@ certificatesResolvers:
           - "8.8.8.8:53"
         disablePropagationCheck: false
 
-# Cloudflare API Token aus Secret
+
+# ---------------------------------------------------------
+# Cloudflare API Token
+# Wird als Umgebungsvariable in den Traefik-Pod injiziert.
+# Das Secret muss im Namespace existieren.
+# ---------------------------------------------------------
 env:
   - name: CF_DNS_API_TOKEN
     valueFrom:
@@ -40,45 +61,81 @@ env:
         name: cloudflare-api-token
         key: CF_DNS_API_TOKEN
 
-# --- ACME Persistent Storage ---
+
+# ---------------------------------------------------------
+# ACME Persistent Storage
+# Speichert acme.json dauerhaft, damit Zertifikate nicht
+# bei jedem Pod-Restart neu erzeugt werden müssen.
+# ---------------------------------------------------------
 persistence:
   enabled: true
   name: acme
   size: 1Gi
 
-# --- Service Type ---
+
+# ---------------------------------------------------------
+# Service
+# Externes Traefik wird über einen LoadBalancer exposed.
+# (MetalLB oder Cloud-Provider abhängig vom Cluster)
+# ---------------------------------------------------------
 service:
   type: LoadBalancer
 
-# --- Dashboard deaktivieren ---
-dashboard:
-  enabled: false
 
-# --- Logging ---
+# ---------------------------------------------------------
+# Dashboard
+# Dashboard bleibt deaktiviert, da es extern nicht
+# öffentlich erreichbar sein soll.
+# ---------------------------------------------------------
+ingressRoute:
+  dashboard:
+    enabled: false
+
+
+# ---------------------------------------------------------
+# Logging
+# Aktiviert Access Logs und setzt General Log Level.
+# ---------------------------------------------------------
 logs:
   general:
     level: INFO
   access:
     enabled: true
 
-# --- Deployment ---
-autoscaling:
-  enabled: false
 
+# ---------------------------------------------------------
+# Deployment Settings
+# Ein einzelner Replica reicht für externes Traefik.
+# (HA wäre möglich, aber nicht notwendig)
+# ---------------------------------------------------------
 deployment:
   replicas: 1
 
-# --- Security ---
+
+# ---------------------------------------------------------
+# Pod Security Context
+# Setzt sichere Default‑Permissions für den Container.
+# ---------------------------------------------------------
 podSecurityContext:
   fsGroup: 65532
 
+
+# ---------------------------------------------------------
+# Container Security Context
+# Entfernt alle Linux Capabilities und macht das FS read‑only.
+# Sehr gute Hardening‑Defaults.
+# ---------------------------------------------------------
 securityContext:
   capabilities:
     drop:
       - ALL
   readOnlyRootFilesystem: true
 
-# --- Ressourcen ---
+
+# ---------------------------------------------------------
+# Ressourcen
+# Minimal, aber stabil für externes Traefik.
+# ---------------------------------------------------------
 resources:
   requests:
     cpu: 100m

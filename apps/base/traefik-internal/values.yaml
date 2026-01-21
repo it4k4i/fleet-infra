@@ -1,11 +1,22 @@
-# --- Provider Settings ---
+# ---------------------------------------------------------
+# Provider Settings
+# Aktiviert die beiden Kubernetes Provider:
+# - CRD Provider (für IngressRoute, Middleware, TLSOption)
+# - Ingress Provider (für klassische Ingress Objekte)
+# ---------------------------------------------------------
 providers:
   kubernetesCRD:
     enabled: true
   kubernetesIngress:
     enabled: true
 
-# --- EntryPoints ---
+
+# ---------------------------------------------------------
+# EntryPoints
+# Definiert die Ports, auf denen Traefik intern lauscht.
+# Zusätzlich: HTTP → HTTPS Redirect über die offizielle
+# Traefik v3 Syntax.
+# ---------------------------------------------------------
 entryPoints:
   web:
     address: ":80"
@@ -18,49 +29,87 @@ entryPoints:
   websecure:
     address: ":443"
 
-# --- Certificates / ACME ---
+
+# ---------------------------------------------------------
+# Certificates / ACME
+# Intern wird kein ACME benötigt, daher leer.
+# ---------------------------------------------------------
 certificatesResolvers: {}
 
-# --- Persistence (disabled) ---
+
+# ---------------------------------------------------------
+# Persistence
+# ACME Storage deaktiviert, da intern nicht benötigt.
+# ---------------------------------------------------------
 persistence:
   enabled: false
 
-# --- Service Type ---
+
+# ---------------------------------------------------------
+# Service
+# Internes Traefik wird über NodePort erreichbar gemacht,
+# damit du es über VPN erreichen kannst.
+# ---------------------------------------------------------
 service:
   type: NodePort
   nodePorts:
     web: 30080
     websecure: 30443
 
-# --- Dashboard deaktivieren ---
-dashboard:
-  enabled: false
 
-# --- Logging ---
+# ---------------------------------------------------------
+# Dashboard
+# Dashboard bleibt deaktiviert, da du es später über eine
+# eigene IngressRoute + internes TLS erreichbar machen willst.
+# ---------------------------------------------------------
+ingressRoute:
+  dashboard:
+    enabled: false
+
+
+# ---------------------------------------------------------
+# Logging
+# Aktiviert Access Logs und setzt General Log Level.
+# ---------------------------------------------------------
 logs:
   general:
     level: INFO
   access:
     enabled: true
 
-# --- Deployment ---
-autoscaling:
-  enabled: false
 
+# ---------------------------------------------------------
+# Deployment Settings
+# Ein einzelner Replica reicht für internes Traefik.
+# ---------------------------------------------------------
 deployment:
   replicas: 1
 
-# --- Security ---
+
+# ---------------------------------------------------------
+# Pod Security Context
+# Setzt sichere Default‑Permissions für den Container.
+# ---------------------------------------------------------
 podSecurityContext:
   fsGroup: 65532
 
+
+# ---------------------------------------------------------
+# Container Security Context
+# Entfernt alle Linux Capabilities und macht das FS read‑only.
+# Sehr gute Hardening‑Defaults.
+# ---------------------------------------------------------
 securityContext:
   capabilities:
     drop:
       - ALL
   readOnlyRootFilesystem: true
 
-# --- Ressourcen ---
+
+# ---------------------------------------------------------
+# Ressourcen
+# Minimal, aber stabil für internes Traefik.
+# ---------------------------------------------------------
 resources:
   requests:
     cpu: 100m
@@ -69,7 +118,12 @@ resources:
     cpu: 500m
     memory: 512Mi
 
-# --- IngressClass ---
+
+# ---------------------------------------------------------
+# IngressClass
+# Definiert eine eigene IngressClass für internes Traefik,
+# damit du interne/externe Routen sauber trennen kannst.
+# ---------------------------------------------------------
 ingressClass:
   enabled: true
   isDefaultClass: false
