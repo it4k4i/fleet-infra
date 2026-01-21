@@ -15,15 +15,15 @@ spec:
         namespace: flux-system
   install:
     createNamespace: true
-    crds: Create   # CRDs automatisch installieren
+    crds: Create
   values:
     additionalArguments:
       - "--providers.kubernetescrd"
       - "--entrypoints.web.address=:80"
       - "--entrypoints.websecure.address=:443"
-  service:
-    type: NodePort
-    nodePorts:
-      web: 30080
-      websecure: 30443
 
+    service:
+      type: NodePort
+      nodePorts:
+        web: 30080
+        websecure: 30443
