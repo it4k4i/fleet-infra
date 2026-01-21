@@ -3,4 +3,4 @@ kind: Kustomization
 
 resources:
   - ../../base/traefik-internal
-  - ingressroute-mastodon.yaml
+  - ingressroute-traefik-internal.yaml
