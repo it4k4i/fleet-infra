@@ -9,30 +9,32 @@ providers:
 entryPoints:
   web:
     address: ":80"
+    http:
+      redirections:
+        entryPoint:
+          to: websecure
+          scheme: https
+
   websecure:
     address: ":443"
 
-# --- Global Redirect HTTP → HTTPS ---
-ports:
-  web:
-    redirectTo: websecure
+# --- Certificates / ACME ---
+certificatesResolvers: {}
 
-# --- ACME Persistent Storage ---
-certificatesResolvers: {} 
-persistence: 
-    enabled: false
+# --- Persistence (disabled) ---
+persistence:
+  enabled: false
 
 # --- Service Type ---
-service: 
-  type: NodePort 
-  nodePorts: 
-    web: 30080 
+service:
+  type: NodePort
+  nodePorts:
+    web: 30080
     websecure: 30443
 
 # --- Dashboard deaktivieren ---
-ingressRoute:
-  dashboard:
-    enabled: false
+dashboard:
+  enabled: false
 
 # --- Logging ---
 logs:
@@ -42,10 +44,16 @@ logs:
     enabled: true
 
 # --- Deployment ---
+autoscaling:
+  enabled: false
+
 deployment:
   replicas: 1
 
 # --- Security ---
+podSecurityContext:
+  fsGroup: 65532
+
 securityContext:
   capabilities:
     drop:
@@ -61,7 +69,7 @@ resources:
     cpu: 500m
     memory: 512Mi
 
-ingressClass: 
-  enabled: true 
-  isDefaultClass: false 
-  name: traefik-internal
+# --- IngressClass ---
+ingressClass:
+  enabled: true
+  isDefaultClass: false

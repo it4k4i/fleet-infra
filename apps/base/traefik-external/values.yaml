@@ -9,13 +9,14 @@ providers:
 entryPoints:
   web:
     address: ":80"
+    http:
+      redirections:
+        entryPoint:
+          to: websecure
+          scheme: https
+
   websecure:
     address: ":443"
-
-# --- Global Redirect HTTP → HTTPS ---
-ports:
-  web:
-    redirectTo: websecure
 
 # --- ACME / Let's Encrypt via Cloudflare DNS-01 ---
 certificatesResolvers:
@@ -44,16 +45,14 @@ persistence:
   enabled: true
   name: acme
   size: 1Gi
-  path: /data
 
 # --- Service Type ---
 service:
   type: LoadBalancer
 
 # --- Dashboard deaktivieren ---
-ingressRoute:
-  dashboard:
-    enabled: false
+dashboard:
+  enabled: false
 
 # --- Logging ---
 logs:
@@ -63,10 +62,16 @@ logs:
     enabled: true
 
 # --- Deployment ---
+autoscaling:
+  enabled: false
+
 deployment:
   replicas: 1
 
 # --- Security ---
+podSecurityContext:
+  fsGroup: 65532
+
 securityContext:
   capabilities:
     drop:
