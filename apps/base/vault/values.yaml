@@ -1,0 +1,84 @@
+# ---------------------------------------------------------
+# Global
+# Aktiviert das gesamte Chart. Meist unverändert lassen.
+# ---------------------------------------------------------
+global:
+  enabled: true
+
+# ---------------------------------------------------------
+# Vault Server
+# Hauptkonfiguration des Vault-Servers.
+# ---------------------------------------------------------
+server:
+
+  # -------------------------------------------------------
+  # HA-Modus
+  # Für Standalone: false. Für Raft-Cluster später: true.
+  # -------------------------------------------------------
+  ha:
+    enabled: false
+
+  # -------------------------------------------------------
+  # Persistenter Speicher für Vault-Daten
+  # Bei Standalone: File-Storage. Für Raft: mehrere PVCs.
+  # -------------------------------------------------------
+  dataStorage:
+    enabled: true
+    size: 5Gi
+
+  # -------------------------------------------------------
+  # Audit-Logs
+  # Optionaler separater Storage für Audit-Backends.
+  # -------------------------------------------------------
+  auditStorage:
+    enabled: false
+
+  # -------------------------------------------------------
+  # Zusätzliche Environment-Variablen für Vault
+  # (z. B. VAULT_LOG_LEVEL)
+  # -------------------------------------------------------
+  extraEnvironmentVars: {}
+
+  # -------------------------------------------------------
+  # Vault-Konfiguration (HCL)
+  # Listener ohne TLS (Traefik übernimmt TLS)
+  # File-Storage für Standalone
+  # -------------------------------------------------------
+  config: |
+    ui = true
+
+    listener "tcp" {
+      address     = "0.0.0.0:8200"
+      tls_disable = 1
+    }
+
+    storage "file" {
+      path = "/vault/data"
+    }
+
+# ---------------------------------------------------------
+# Vault UI
+# Aktiviert die Weboberfläche.
+# ---------------------------------------------------------
+ui:
+  enabled: true
+
+# ---------------------------------------------------------
+# Vault Injector
+# Mutating Webhook, der Secrets automatisch in Pods injiziert.
+# Sehr sinnvoll, wenn Apps Vault nutzen sollen.
+# ---------------------------------------------------------
+injector:
+  enabled: true
+
+# ---------------------------------------------------------
+# Ressourcenlimits
+# Minimal, aber ausreichend für Standalone + Injector.
+# ---------------------------------------------------------
+resources:
+  requests:
+    memory: '256Mi'
+    cpu: '250m'
+  limits:
+    memory: '256Mi'
+    cpu: '250m'

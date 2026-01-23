@@ -1,0 +1,20 @@
+# ---------------------------------------------------------
+# Interne IngressRoute für Vault
+# Macht die UI und API intern erreichbar.
+# ---------------------------------------------------------
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: vault-internal
+  namespace: vault
+spec:
+  entryPoints:
+    - websecure-internal
+  routes:
+    - match: Host(`vault.internal.local`)
+      kind: Rule
+      services:
+        - name: vault-ui
+          port: 8200
+  tls:
+    certResolver: internal
