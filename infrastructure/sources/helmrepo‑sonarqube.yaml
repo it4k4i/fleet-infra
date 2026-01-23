@@ -1,8 +1,8 @@
 apiVersion: source.toolkit.fluxcd.io/v1beta2
 kind: HelmRepository
 metadata:
-  name: traefik
+  name: sonarqube
   namespace: flux-system
 spec:
   interval: 1h
-  url: https://helm.traefik.io/traefik
+  url: https://SonarSource.github.io/helm-chart-sonarqube

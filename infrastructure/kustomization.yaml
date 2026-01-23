@@ -6,3 +6,5 @@ resources:
   - ./sources/helmrepo-jetstack.yaml
   - ./sources/helmrepo‑bitnami.yaml
   - ./sources/helmrepo‑traefik.yaml
+  - ./sources/helmrepo‑gitlab.yaml
+  - ./sources/helmrepo‑sonarqube.yaml
