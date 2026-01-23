@@ -56,29 +56,29 @@ server:
       path = "/vault/data"
     }
 
-# ---------------------------------------------------------
-# Vault UI
-# Aktiviert die Weboberfläche.
-# ---------------------------------------------------------
-ui:
-  enabled: true
+  # ---------------------------------------------------------
+  # Vault UI
+  # Aktiviert die Weboberfläche.
+  # ---------------------------------------------------------
+  ui:
+    enabled: true
 
-# ---------------------------------------------------------
-# Vault Injector
-# Mutating Webhook, der Secrets automatisch in Pods injiziert.
-# Sehr sinnvoll, wenn Apps Vault nutzen sollen.
-# ---------------------------------------------------------
-injector:
-  enabled: true
+  # ---------------------------------------------------------
+  # Vault Injector
+  # Mutating Webhook, der Secrets automatisch in Pods injiziert.
+  # Sehr sinnvoll, wenn Apps Vault nutzen sollen.
+  # ---------------------------------------------------------
+  injector:
+    enabled: true
 
-# ---------------------------------------------------------
-# Ressourcenlimits
-# Minimal, aber ausreichend für Standalone + Injector.
-# ---------------------------------------------------------
-resources:
-  requests:
-    memory: '256Mi'
-    cpu: '250m'
-  limits:
-    memory: '256Mi'
-    cpu: '250m'
+  # ---------------------------------------------------------
+  # Ressourcenlimits
+  # Minimal, aber ausreichend für Standalone + Injector.
+  # ---------------------------------------------------------
+  resources:
+    requests:
+      memory: '256Mi'
+      cpu: '250m'
+    limits:
+      memory: '256Mi'
+      cpu: '250m'
