@@ -8,3 +8,4 @@ resources:
   - ./sources/helmrepo‑traefik.yaml
   - ./sources/helmrepo‑gitlab.yaml
   - ./sources/helmrepo‑sonarqube.yaml
+  - ./sources/helmrepo‑hashicorp.yaml
