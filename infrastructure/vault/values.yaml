@@ -16,7 +16,7 @@ server:
   # Für Standalone: false. Für Raft-Cluster später: true.
   # -------------------------------------------------------
   ha:
-    enabled: false
+    enabled: true
 
   # -------------------------------------------------------
   # Persistenter Speicher für Vault-Daten
@@ -51,9 +51,9 @@ server:
       tls_disable = 1 
     } 
     
-    storage "file" { 
+    storage "raft" { 
       path = "/vault/data" 
-    } 
+    }
 
   # ---------------------------------------------------------
   # Vault UI
