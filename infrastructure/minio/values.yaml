@@ -22,3 +22,25 @@ extraVolumeMounts:
 env:
   - name: MINIO_KMS_KES_CONFIG
     value: /etc/minio-kms/kms.json
+
+ingress:
+  enabled: true
+  ingressClassName: traefik-external
+  hosts:
+    - s3.minio.internal.local
+  paths:
+    - /
+  pathType: Prefix
+  port: 9000
+
+console:
+  enabled: true
+  ingress:
+    enabled: true
+    ingressClassName: traefik-external
+    hosts:
+      - console.minio.internal.local
+    paths:
+      - /
+    pathType: Prefix
+    port: 9001
