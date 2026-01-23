@@ -25,7 +25,7 @@ env:
 
 ingress:
   enabled: true
-  ingressClassName: traefik-external
+  ingressClassName: traefik-internal
   hosts:
     - s3.minio.internal.local
   paths:
@@ -37,7 +37,7 @@ console:
   enabled: true
   ingress:
     enabled: true
-    ingressClassName: traefik-external
+    ingressClassName: traefik-internal
     hosts:
       - console.minio.internal.local
     paths:
