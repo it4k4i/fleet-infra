@@ -1,0 +1,24 @@
+mode: standalone
+
+persistence:
+  enabled: true
+  size: 20Gi
+
+resources:
+  requests:
+    cpu: 100m
+    memory: 256Mi
+
+extraVolumes:
+  - name: kms-config
+    configMap:
+      name: minio-kms-config
+
+extraVolumeMounts:
+  - name: kms-config
+    mountPath: /etc/minio-kms
+    readOnly: true
+
+env:
+  - name: MINIO_KMS_KES_CONFIG
+    value: /etc/minio-kms/kms.json

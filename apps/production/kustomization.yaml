@@ -4,5 +4,3 @@ kind: Kustomization
 resources:
   - traefik-external
   - traefik-internal
-  - vault
-  

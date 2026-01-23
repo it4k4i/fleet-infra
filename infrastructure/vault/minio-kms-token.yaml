@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: Secret
+metadata:
+  name: minio-kms-token
+  namespace: vault
+type: Opaque
+stringData:
+  token: "minio-kms-token"

@@ -9,3 +9,6 @@ resources:
   - ./sources/helmrepo‑gitlab.yaml
   - ./sources/helmrepo‑sonarqube.yaml
   - ./sources/helmrepo‑hashicorp.yaml
+  - ./sources/helmrepo‑minio.yaml
+  - vault
+  - minio

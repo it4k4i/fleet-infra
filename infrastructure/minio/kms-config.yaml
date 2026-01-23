@@ -1,0 +1,28 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: minio-kms-config
+  namespace: minio
+data:
+  kms.json: |
+    {
+      "version": "ENC[AES256_GCM,data:9A==,iv:/0FQjzZO7l27GRtL0/MvJJAdPiv1gdWcnBo+13W4Aeg=,tag:/JPLx7YoLMlwTsv5x8D3LQ==,type:str]",
+      "kms": {
+        "type": "ENC[AES256_GCM,data:2niWoJNt,iv:AGxfcj+4SNMpBr44C+n8Tm224NLkDcbCXCxCEVjl7X0=,tag:yhPdWXz0QDkCSqeYAZR1pA==,type:str]",
+        "secret": {
+          "key": "ENC[AES256_GCM,data:ysjryE58DrmOe87235yK7MSW+qUssDKK7yk0ng5uRArxw6+FTu8VVhuTHFo=,iv:cw+QM7eoGE0OOXUBxgZmNcBQgA8mYCyYM3i2HFFI8n4=,tag:3IR6exNi2WXxlR3WGHQJJA==,type:str]"
+        }
+      },
+      "sops": {
+        "age": [
+          {
+            "recipient": "age1sq50qe255srv665z247nfmw2ugsru0akwc88kclfjshkw9a4napsxtetgx",
+            "enc": "-----BEGIN AGE ENCRYPTED FILE-----\nYWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBBWXdSVmZQdEtKa3E5QURa\nYndBZ1B5WVJvNEx2RDVqMy85VHpGYzVsZnhNCnBjNDA4bEJaS2R5S1Q2eUJsRkZ4\nYkJPcXpPcndwQWpIcy9RanRBakhmWFUKLS0tIDNZanRRby9xZ3NZeXk3WG1XL1d5\ndmFydlhQQ1R6R05ySlFHeWZvemtMd0kKsipxlKXPjsaqFaLb1uS5ZTius+TcwZaY\nTQdj4hAQ9GcxdLP7zkMFgCly27ZM9T1zT1cBncp96fYCfubR/GLLpA==\n-----END AGE ENCRYPTED FILE-----\n"
+          }
+        ],
+        "lastmodified": "2026-01-23T22:39:11Z",
+        "mac": "ENC[AES256_GCM,data:cgTfM4wiOccRZzhzMmXiXqxIFsxqPpHIso1C73dhvbPCsVrkJkUe3dYnnlaXMcwk144lbrQbfQ3SPClszbOvtRezXsjBnt23nWIKrsn1rtayAj/OmOf7C74tPJBdbDzfcLpxqD9whzIoQ0AFk5bDrGXMo395tC0icYFE+I9+rjA=,iv:H8R6zjgOuQTtHjHWYCWJxyK1t1a2f4o/qjCW6eHIuJo=,tag:UWfMvic2aHzw8V96HRht7w==,type:str]",
+        "unencrypted_suffix": "_unencrypted",
+        "version": "3.11.0"
+      }
+    }
