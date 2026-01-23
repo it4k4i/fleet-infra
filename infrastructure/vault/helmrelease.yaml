@@ -14,3 +14,8 @@ spec:
         name: hashicorp
         namespace: flux-system
       interval: 1m
+
+  valuesFrom:
+    - kind: ConfigMap
+      name: vault-values
+      valuesKey: values.yaml

@@ -14,3 +14,8 @@ spec:
         name: minio
         namespace: flux-system
       interval: 1m
+
+  valuesFrom:
+    - kind: ConfigMap
+      name: minio-values
+      valuesKey: values.yaml
