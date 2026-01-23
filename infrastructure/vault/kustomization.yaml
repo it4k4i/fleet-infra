@@ -1,17 +1,17 @@
-  apiVersion: kustomize.config.k8s.io/v1beta1
-  kind: Kustomization
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
 
-  namespace: vault
+namespace: vault
 
-  resources:
-    - namespace.yaml
-    - helmrelease.yaml
-    - minio-kms-token.yaml
+resources:
+  - namespace.yaml
+  - helmrelease.yaml
+  - minio-kms-token.yaml
 
-  configMapGenerator:
-    - name: vault-values
-      files:
-        - values.yaml
+configMapGenerator:
+  - name: vault-values
+    files:
+      - values.yaml
 
-  generatorOptions:
-    disableNameSuffixHash: true
+generatorOptions:
+  disableNameSuffixHash: true
