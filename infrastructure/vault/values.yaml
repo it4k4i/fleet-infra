@@ -54,12 +54,6 @@ server:
     storage "file" { 
       path = "/vault/data" 
     } 
-    
-    seal "transit" { 
-      address = "http://minio.minio.svc.cluster.local:9000" 
-      token = "minio-kms-token" 
-      key_name = "vault-unseal-key" 
-    }
 
   # ---------------------------------------------------------
   # Vault UI
