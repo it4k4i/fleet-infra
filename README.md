@@ -1,0 +1,6 @@
+- redis -> apps
+- postreges -> apps und infrastructure , getrennt 
+- grafana -> infrastructure
+- keycloak -> infrastructure
+- gitlab mit ci/cd -> apps
+- mastodon -> apps
