@@ -7,7 +7,6 @@ resources:
   - namespace.yaml
   - helmrelease.yaml
   - minio-kms-token.yaml
-  - policies
   - roles
 
 configMapGenerator:
