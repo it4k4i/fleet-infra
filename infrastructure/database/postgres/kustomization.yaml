@@ -6,7 +6,7 @@ namespace: postgres-infra
 resources:
   - namespace.yaml
   - helmrelease.yaml
-  - bootstrap
+  - bootstrap/*.yaml
   - externalsecret-admin.yaml 
   - externalsecret-media-service.yaml
   - externalsecret-user-service.yaml
