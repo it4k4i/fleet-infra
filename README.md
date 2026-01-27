@@ -1,6 +1,8 @@
-- redis -> apps
-- postreges -> apps und infrastructure , getrennt 
 - grafana -> infrastructure
 - keycloak -> infrastructure
+- postreges -> apps und infrastructure , getrennt 
+- redis -> apps
 - gitlab mit ci/cd -> apps
+- sonarqube -> apps
 - mastodon -> apps
+- cryptpad -> apps
