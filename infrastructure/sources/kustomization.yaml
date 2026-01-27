@@ -11,3 +11,5 @@ resources:
   - helmrepo‑hashicorp.yaml
   - helmrepo‑minio.yaml
   - helmrepo.grafana.yaml
+  - helmrepo-mastodon.yaml
+  - helmrepo-cryptpad.yaml
