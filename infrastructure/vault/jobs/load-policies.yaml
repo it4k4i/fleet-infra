@@ -1,9 +1,10 @@
 apiVersion: batch/v1
 kind: Job
 metadata:
-  name: vault-load-policies
+  name: vault-bootstrap-postgres
   namespace: vault
 spec:
+  backoffLimit: 3
   template:
     spec:
       serviceAccountName: vault-admin
@@ -14,13 +15,32 @@ spec:
         command: ["/bin/sh","-c"]
         args:
           - |
+            # Policies schreiben
             for f in /policies/*.hcl; do
               vault policy write $(basename $f .hcl) $f
             done
+
+            # Role aus ConfigMap lesen und schreiben
+            ROLE_NAME=$(cat /roles/role-name)
+            BOUND_SA=$(cat /roles/bound-service-account-names)
+            BOUND_NS=$(cat /roles/bound-service-account-namespaces)
+            POLICIES=$(cat /roles/policies)
+            TTL=$(cat /roles/ttl)
+
+            vault write auth/kubernetes/role/$ROLE_NAME \
+              bound_service_account_names=$BOUND_SA \
+              bound_service_account_namespaces=$BOUND_NS \
+              policies=$POLICIES \
+              ttl=$TTL
         volumeMounts:
         - name: vault-policies
           mountPath: /policies
+        - name: vault-roles
+          mountPath: /roles
       volumes:
       - name: vault-policies
         configMap:
           name: vault-policies
+      - name: vault-roles
+        configMap:
+          name: vault-role-postgres-infra
