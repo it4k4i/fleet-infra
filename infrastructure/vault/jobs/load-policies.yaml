@@ -1,0 +1,26 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: vault-load-policies
+  namespace: vault
+spec:
+  template:
+    spec:
+      serviceAccountName: vault-admin
+      restartPolicy: OnFailure
+      containers:
+      - name: vault
+        image: hashicorp/vault:1.14.3
+        command: ["/bin/sh","-c"]
+        args:
+          - |
+            for f in /policies/*.hcl; do
+              vault policy write $(basename $f .hcl) $f
+            done
+        volumeMounts:
+        - name: vault-policies
+          mountPath: /policies
+      volumes:
+      - name: vault-policies
+        configMap:
+          name: vault-policies

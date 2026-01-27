@@ -8,11 +8,15 @@ resources:
   - helmrelease.yaml
   - minio-kms-token.yaml
   - roles
+  - jobs/load-policies.yaml
 
 configMapGenerator:
   - name: vault-values
     files:
       - values.yaml
+  - name: vault-policies
+    files:
+      - policies/postgres-infra-admin.hcl
 
 generatorOptions:
   disableNameSuffixHash: true
