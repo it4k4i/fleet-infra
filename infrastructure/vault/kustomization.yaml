@@ -10,6 +10,7 @@ resources:
   - roles
   - policies
   - jobs
+  - sa/vault-admin.yaml
 
 configMapGenerator:
   - name: vault-values
