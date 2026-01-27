@@ -4,5 +4,5 @@
 - redis -> apps
 - gitlab mit ci/cd -> apps
 - sonarqube -> apps
-- mastodon -> apps
-- cryptpad -> apps
+- mastodon -> apps -> https://github.com/mastodon/chart
+- cryptpad -> apps -> https://github.com/cryptpad/helm
