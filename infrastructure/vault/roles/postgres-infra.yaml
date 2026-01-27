@@ -9,6 +9,6 @@ metadata:
 data:
   role-name: "postgres-infra"
   bound-service-account-names: "external-secrets"
-  bound-service-account-namespaces: "external-secrets"
+  bound-service-account-namespaces: "postgres-infra"
   policies: "postgres-admin"
   ttl: "1h"
