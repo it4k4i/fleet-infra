@@ -3,12 +3,7 @@ kind: Kustomization
 
 resources:
  # - ./crds/traefik-crds.yaml
-  - ./sources/helmrepo-jetstack.yaml
-  - ./sources/helmrepo‑bitnami.yaml
-  - ./sources/helmrepo‑traefik.yaml
-  - ./sources/helmrepo‑gitlab.yaml
-  - ./sources/helmrepo‑sonarqube.yaml
-  - ./sources/helmrepo‑hashicorp.yaml
-  - ./sources/helmrepo‑minio.yaml
+  - sources
   - vault
   - minio
+  - ingress
