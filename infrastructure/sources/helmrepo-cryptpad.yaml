@@ -1,8 +1,8 @@
 apiVersion: source.toolkit.fluxcd.io/v1beta2
 kind: HelmRepository
 metadata:
-  name: mastodon
+  name: cryptpad
   namespace: flux-system
 spec:
+  url: https://charts.cryptpad.org/
   interval: 1h
-  url: https://github.com/cryptpad/helm

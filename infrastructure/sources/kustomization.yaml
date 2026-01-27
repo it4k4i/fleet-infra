@@ -2,14 +2,13 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 
 resources:
- # - ./crds/traefik-crds.yaml
   - helmrepo-jetstack.yaml
-  - helmrepo‑bitnami.yaml
-  - helmrepo‑traefik.yaml
-  - helmrepo‑gitlab.yaml
-  - helmrepo‑sonarqube.yaml
-  - helmrepo‑hashicorp.yaml
-  - helmrepo‑minio.yaml
+  - helmrepo-bitnami.yaml
+  - helmrepo-traefik.yaml
+  - helmrepo-gitlab.yaml
+  - helmrepo-sonarqube.yaml
+  - helmrepo-hashicorp.yaml
+  - helmrepo-minio.yaml
   - helmrepo-grafana.yaml
   - helmrepo-mastodon.yaml
   - helmrepo-cryptpad.yaml
