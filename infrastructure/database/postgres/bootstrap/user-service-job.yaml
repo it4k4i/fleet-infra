@@ -10,7 +10,7 @@ spec:
       restartPolicy: OnFailure
       containers:
         - name: psql
-          image: bitnami/postgresql:16
+          image: bitnami/postgresql:16-debian-11-r0
           env:
             # Admin Passwort für Postgres aus Secret
             - name: PGPASSWORD
