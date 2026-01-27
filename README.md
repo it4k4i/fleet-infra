@@ -1,4 +1,4 @@
-- grafana -> infrastructure
+- grafana -> infrastructure -> https://grafana.github.io/helm-charts
 - keycloak -> infrastructure
 - postreges -> apps und infrastructure , getrennt 
 - redis -> apps
