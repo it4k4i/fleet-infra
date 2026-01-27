@@ -1,0 +1,43 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: bootstrap-user-service-db
+  namespace: postgres-infra
+spec:
+  backoffLimit: 3
+  template:
+    spec:
+      restartPolicy: OnFailure
+      containers:
+        - name: psql
+          image: bitnami/postgresql:16
+          env:
+            # Admin Passwort für Postgres aus Secret
+            - name: PGPASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: postgres-admin-secret
+                  key: postgres-password
+            # Service Passwort aus ExternalSecret
+            - name: SERVICE_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: user-service-db
+                  key: password
+          command:
+            - sh
+            - -c
+            - |
+              psql -h postgres-infra -U postgres -d infra <<'EOSQL'
+              DO
+              $$
+              BEGIN
+                 IF NOT EXISTS (SELECT FROM pg_roles WHERE rolname = 'user_service') THEN
+                    EXECUTE format('CREATE ROLE user_service LOGIN PASSWORD %L', :'SERVICE_PASSWORD');
+                 END IF;
+              END
+              $$;
+
+              CREATE SCHEMA IF NOT EXISTS user_service AUTHORIZATION user_service;
+              GRANT ALL ON SCHEMA user_service TO user_service;
+              EOSQL

@@ -1,0 +1,14 @@
+# infrastructure/vault/roles/postgres-infra.yaml
+
+# Kubernetes Auth Role für External Secrets
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: vault-role-postgres-infra
+  namespace: vault
+data:
+  role-name: "postgres-infra"
+  bound-service-account-names: "external-secrets"
+  bound-service-account-namespaces: "external-secrets"
+  policies: "postgres-admin"
+  ttl: "1h"

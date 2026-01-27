@@ -1,0 +1,27 @@
+auth:
+  existingSecret: postgres-admin-secret
+  username: postgres
+  database: infra
+  secretKeys:
+    adminPasswordKey: postgres-password
+
+primary:
+  persistence:
+    enabled: true
+    size: 20Gi
+
+  resources:
+    requests:
+      cpu: 100m
+      memory: 512Mi
+    limits:
+      cpu: 500m
+      memory: 1Gi
+
+volumePermissions:
+  enabled: true
+
+metrics:
+  enabled: true
+  serviceMonitor:
+    enabled: true
