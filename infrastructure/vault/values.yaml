@@ -16,8 +16,8 @@ server:
   # Für Standalone: false. Für Raft-Cluster später: true.
   # -------------------------------------------------------
   ha:
-    enabled: false
-    #replicas: 1   # jetzt
+    enabled: true
+    replicas: 3   # jetzt
 
   # -------------------------------------------------------
   # Persistenter Speicher für Vault-Daten
