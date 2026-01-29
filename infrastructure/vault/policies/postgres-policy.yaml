@@ -1,0 +1,25 @@
+apiVersion: redhatcop.redhat.io/v1alpha1
+kind: VaultPolicy
+metadata:
+  name: postgres-admin
+  namespace: vault
+spec:
+  # Der Inhalt deiner ursprünglichen .hcl Datei 
+  policy: |
+    path "kv/data/postgres-infra/admin" {
+      capabilities = ["read"]
+    }
+    path "kv/data/postgres-infra/*" {
+      capabilities = ["list"]
+    }
+    # Optional: Leserechte für andere Admin-Sektionen
+    path "kv/data/postgres-infra/*" {
+      capabilities = ["list"]
+    }
+    path "kv/data/postgres-infra/user-service" {
+      capabilities = ["read"]
+    }
+
+    path "kv/data/postgres-infra/media-service" {
+      capabilities = ["read"]
+    }

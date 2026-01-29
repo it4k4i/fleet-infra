@@ -15,9 +15,6 @@ configMapGenerator:
   - name: vault-values
     files:
       - values.yaml
-  - name: vault-policies
-    files:
-      - postgres-admin=postgres-infra-admin.hcl
-
+      
 generatorOptions:
   disableNameSuffixHash: true

@@ -1,14 +1,15 @@
-# infrastructure/vault/roles/postgres-infra.yaml
-
-# Kubernetes Auth Role für External Secrets
-apiVersion: v1
-kind: ConfigMap
+apiVersion: redhatcop.redhat.io/v1alpha1
+kind: KubernetesAuthEngineRole
 metadata:
-  name: vault-role-postgres-infra
+  name: postgres-infra-role
   namespace: vault
-data:
-  role-name: "postgres-infra"
-  bound-service-account-names: "external-secrets"
-  bound-service-account-namespaces: "postgres-infra"
-  policies: "postgres-admin"
-  ttl: "1h"
+spec:
+  roleName: "postgres-infra"
+  # Diese Daten stammen aus deiner ursprünglichen ConfigMap 
+  boundServiceAccountNames: 
+    - "external-secrets"
+  boundServiceAccountNamespaces: 
+    - "postgres-infra"
+  tokenPolicies: 
+    - "postgres-admin"
+  tokenMaxTtl: 3600

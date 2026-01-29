@@ -8,6 +8,17 @@ spec:
   template:
     spec:
       restartPolicy: OnFailure
+      # Init-Container wartet, bis ESO das Secret erstellt hat
+      initContainers:
+      - name: wait-for-secrets
+        image: bitnami/kubectl:latest
+        command:
+        - sh
+        - -c
+        - |
+          until kubectl get secret postgres-admin-secret && kubectl get secret media-service-db; do 
+            echo "Waiting for secrets..."; sleep 2; 
+          done
       containers:
         - name: psql
           image: bitnami/postgresql:latest
