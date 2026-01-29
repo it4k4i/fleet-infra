@@ -13,3 +13,7 @@ spec:
         kind: HelmRepository
         name: redhat-cop
         namespace: flux-system
+  install:
+    createNamespace: true
+  values:
+    installCRDs: true
