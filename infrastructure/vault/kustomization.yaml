@@ -10,7 +10,6 @@ resources:
   - roles
   - policies
   - jobs
-  - sa/vault-admin.yaml
 
 configMapGenerator:
   - name: vault-values
@@ -18,7 +17,7 @@ configMapGenerator:
       - values.yaml
   - name: vault-policies
     files:
-      - policies/postgres-infra-admin.hcl
+      - postgres-admin=postgres-infra-admin.hcl
 
 generatorOptions:
   disableNameSuffixHash: true
