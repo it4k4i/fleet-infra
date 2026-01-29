@@ -2,6 +2,7 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 
 resources:
+  - helmrepo-redhat-cop.yaml
   - helmrepo-jetstack.yaml
   - helmrepo-bitnami.yaml
   - helmrepo-traefik.yaml
@@ -12,4 +13,3 @@ resources:
   - helmrepo-grafana.yaml
   - helmrepo-mastodon.yaml
   - helmrepo-cryptpad.yaml
-  - helmrepo-redhat-cop.yaml
