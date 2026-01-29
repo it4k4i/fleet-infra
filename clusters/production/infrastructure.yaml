@@ -5,6 +5,8 @@ metadata:
   namespace: flux-system
 spec:
   interval: 1m
+  dependsOn:
+    - name: operators # Hier wird der Vault-Config-Operator installiert
   path: ./infrastructure
   prune: true
   sourceRef:

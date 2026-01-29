@@ -12,3 +12,4 @@ resources:
   - helmrepo-grafana.yaml
   - helmrepo-mastodon.yaml
   - helmrepo-cryptpad.yaml
+  - helmrepo-redhat-cop.yaml
