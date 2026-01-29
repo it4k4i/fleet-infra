@@ -1,0 +1,26 @@
+# 1. Die Quelle für den Helm-Chart
+apiVersion: source.toolkit.fluxcd.io/v1
+kind: HelmRepository
+metadata:
+  name: redhat-cop
+  namespace: flux-system
+spec:
+  interval: 1h
+  url: https://redhat-cop.github.io/helm-charts
+---
+# 2. Der Operator selbst
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: vault-config-operator
+  namespace: vault
+spec:
+  interval: 5m
+  chart:
+    spec:
+      chart: vault-config-operator
+      version: "0.8.18" # Prüfe die aktuellste Version
+      sourceRef:
+        kind: HelmRepository
+        name: redhat-cop
+        namespace: flux-system
