@@ -1,3 +1,5 @@
+# Project on Hold. Awaiting the switch to ArgoCD (from fluxcd) and infrastructure redesign #
+
 - grafana -> infrastructure -> https://grafana.github.io/helm-charts
 - keycloak -> infrastructure
 - postreges -> apps und infrastructure , getrennt 
